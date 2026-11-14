@@ -23,8 +23,47 @@ function InfographicRuntime() {
     pastel:  ['#A0C4FF', '#FFADAD', '#CAFFBF', '#FFD6A5', '#BDB2FF', '#FFC6FF', '#9BF6FF', '#FDFFB6', '#D0D1FF', '#E2ECE9'],
     earth:   ['#606C38', '#283618', '#DDA15E', '#BC6C25', '#8D6A9F', '#5F7470', '#A3B18A', '#B5838D', '#6D597A', '#E07A5F'],
     mono:    ['#111827', '#374151', '#4B5563', '#6B7280', '#9CA3AF', '#1F2937', '#525252', '#737373', '#A3A3A3', '#D4D4D4'],
+    aurora:  ['#5EEAD4', '#A78BFA', '#F472B6', '#60A5FA', '#FBBF24', '#34D399', '#FB7185', '#38BDF8', '#C084FC', '#FDE047'],
+    candy:   ['#6C63FF', '#FF6B9A', '#19C3B1', '#FFA63D', '#4DA8FF', '#B66DFF', '#FF7A59', '#2FCB7A', '#F2B807', '#7A8BA6'],
+    ink:     ['#D1495B', '#00798C', '#EDAE49', '#30638E', '#66A182', '#8D5B8C', '#E07A5F', '#3D405B', '#81B29A', '#C9A227'],
+    glacier: ['#2563EB', '#06B6D4', '#7C3AED', '#0EA5A4', '#F43F5E', '#F59E0B', '#3B82F6', '#14B8A6', '#8B5CF6', '#64748B'],
+    dusk:    ['#C2255C', '#5F3DC4', '#E8590C', '#1971C2', '#2B8A3E', '#D6336C', '#F08C00', '#7048E8', '#0C8599', '#862E9C'],
     neon:    ['#00F5D4', '#F15BB5', '#FEE440', '#00BBF9', '#9B5DE5', '#FF006E', '#3A86FF', '#8AC926', '#FB5607', '#FFBE0B']
   };
+
+  /* Visual looks. `defaults` are theme colours applied unless the user sets their own. */
+  var DARK_MAP = { oceanColor: '#0f1836', noDataColor: '#232e52', landColor: '#2a3763', mapLow: '#23407a', mapHigh: '#7ee8fa', headerColor: '#2b3a6b' };
+  function themed(base, extra) { var o = {}, k; for (k in base) o[k] = base[k]; for (k in extra) o[k] = extra[k]; return o; }
+  var LOOKS = {
+    classic: { defaults: {} },
+    studio: { dark: false, paper: '#ffffff', defaults: { background: '#eef1f7', textColor: '#141a2b', palette: 'vivid', fxDepth: 0 },
+      shadow: 0.34, shadowBlur: 18, shadowDist: 16, rim: 0.6, shade: 0.16, gloss: 0.14, spot: 0.2, sweep: 0.26, glow: 0, particles: 0, vignette: 0 },
+    aurora: { dark: true, paper: '#1a2444', defaults: themed(DARK_MAP, { background: '#080c1f', textColor: '#eef2ff', palette: 'aurora', fxDepth: 0 }),
+      shadow: 0.5, shadowBlur: 18, shadowDist: 14, rim: 0.5, shade: 0.2, gloss: 0.1, spot: 0.16, sweep: 0.28, glow: 0.5, particles: 54, particleColors: ['#ffffff', '#a5f3fc', '#c4b5fd', '#fbcfe8'], vignette: 0.5 },
+    neon: { dark: true, paper: '#161a33', defaults: themed(DARK_MAP, { background: '#05060f', textColor: '#f4f7ff', palette: 'neon', fxDepth: 0, mapLow: '#3b1d6e', mapHigh: '#00f5d4' }),
+      shadow: 0, shadowBlur: 16, shadowDist: 10, rim: 0.7, shade: 0.15, gloss: 0.06, spot: 0.12, sweep: 0.4, glow: 0.95, particles: 0, vignette: 0.55 },
+    glass: { dark: false, paper: '#ffffff', panel: true, defaults: { background: '#f3f4fb', textColor: '#151a2d', palette: 'vivid', fxDepth: 0 },
+      shadow: 0.3, shadowBlur: 16, shadowDist: 14, rim: 0.65, shade: 0.14, gloss: 0.16, spot: 0.2, sweep: 0.3, glow: 0, particles: 0, vignette: 0 },
+    depth: { dark: true, paper: '#1d2740', defaults: themed(DARK_MAP, { background: '#111828', textColor: '#f1f5ff', palette: 'aurora', fxDepth: 14 }),
+      shadow: 0.6, shadowBlur: 22, shadowDist: 20, rim: 0.65, shade: 0.25, gloss: 0.14, spot: 0.24, sweep: 0.2, glow: 0.14, particles: 24, particleColors: ['#ffffff', '#93c5fd'], vignette: 0.5 }
+  };
+
+  LOOKS.pastel = { dark: false, paper: '#ffffff', defaults: { background: '#f8f4ff', textColor: '#1d1b3a', palette: 'candy', fxDepth: 0 },
+    shadow: 0.26, shadowBlur: 20, shadowDist: 14, shadowColor: '#4a3a8a', rim: 0.6, shade: 0.12, gloss: 0.14, spot: 0.18, sweep: 0.28, glow: 0,
+    particles: 27, particleColors: ['#ffffff'], vignette: 0 };
+  LOOKS.sunrise = { dark: false, paper: '#fffaf2', defaults: { background: '#fff1e2', textColor: '#3a1d2e', palette: 'dusk', fxDepth: 0, mapLow: '#ffe2c4', mapHigh: '#c2255c', headerColor: '#7a2e4d' },
+    shadow: 0.3, shadowBlur: 18, shadowDist: 18, shadowColor: '#7a2e3a', rim: 0.65, shade: 0.14, gloss: 0.14, spot: 0.26, sweep: 0.26, glow: 0, particles: 0, vignette: 0 };
+  LOOKS.paper = { dark: false, paper: '#fbf7ee', defaults: { background: '#f5eee0', textColor: '#2b2620', palette: 'ink', fxDepth: 0, mapLow: '#eadfc8', mapHigh: '#00798C', noDataColor: '#e2d9c6', landColor: '#e2d9c6', oceanColor: '#fbf7ee', headerColor: '#3D405B' },
+    shadow: 0.36, shadowBlur: 5, shadowDist: 7, shadowColor: '#3b2a12', rim: 0.35, shade: 0.1, gloss: 0.05, spot: 0.1, sweep: 0, glow: 0, particles: 0, vignette: 0.16, vignetteRGB: '110,80,30' };
+  LOOKS.frost = { dark: false, paper: '#ffffff', defaults: { background: '#eef6ff', textColor: '#10233f', palette: 'glacier', fxDepth: 0, mapLow: '#dbeafe', mapHigh: '#1d4ed8' },
+    shadow: 0.26, shadowBlur: 18, shadowDist: 14, shadowColor: '#1e3a6e', rim: 0.75, shade: 0.12, gloss: 0.18, spot: 0.22, sweep: 0.34, glow: 0,
+    particles: 46, particleColors: ['#ffffff', '#ffffff', '#b9dcff'], vignette: 0 };
+  LOOKS.clay = { dark: false, paper: '#ffffff', defaults: { background: '#eceef7', textColor: '#232946', palette: 'candy', fxDepth: 12 },
+    shadow: 0.34, shadowBlur: 26, shadowDist: 22, shadowColor: '#39407a', rim: 0.7, shade: 0.1, gloss: 0.2, spot: 0.22, sweep: 0.18, glow: 0, sideShade: 0.24, particles: 0, vignette: 0 };
+  (function () { // menu order: classic, light looks, then dark looks
+    var order = ['classic', 'studio', 'glass', 'pastel', 'sunrise', 'paper', 'frost', 'clay', 'aurora', 'neon', 'depth'], o = {};
+    order.forEach(function (k) { o[k] = LOOKS[k]; }); LOOKS = o;
+  })();
 
   var FONTS = {
     system: 'system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
@@ -39,6 +78,11 @@ function InfographicRuntime() {
     { group: 'Header', key: 'title', label: 'Title', type: 'text', def: '' },
     { group: 'Header', key: 'subtitle', label: 'Subtitle', type: 'textarea', def: '' },
     { group: 'Header', key: 'source', label: 'Footer / source note', type: 'text', def: '' },
+    { group: 'Look & lighting', key: 'look', label: 'Look', type: 'select', def: 'classic', options: Object.keys(LOOKS) },
+    { group: 'Look & lighting', key: 'fxIntensity', label: 'Effect strength', type: 'range', def: 1, min: 0, max: 1.6, step: 0.05 },
+    { group: 'Look & lighting', key: 'lightSpeed', label: 'Light movement (0 = still)', type: 'range', def: 1, min: 0, max: 3, step: 0.1 },
+    { group: 'Look & lighting', key: 'fxDepth', label: '3D depth', type: 'range', def: 0, min: 0, max: 30, step: 1 },
+    { group: 'Look & lighting', key: 'fxParticles', label: 'Floating particles (Pastel, Frost, Aurora and Depth)', type: 'checkbox', def: true },
     { group: 'Style', key: 'palette', label: 'Colour palette', type: 'select', def: 'vivid', options: Object.keys(PALETTES) },
     { group: 'Style', key: 'customColors', label: 'Custom colours (one per line: Name: #hex)', type: 'textarea', def: '' },
     { group: 'Style', key: 'background', label: 'Background', type: 'color', def: '#ffffff' },
@@ -1094,7 +1138,7 @@ function InfographicRuntime() {
         ctx.globalAlpha = clamp(k * 4, 0, 1);
         ctx.translate(0, (1 - EASINGS.snappy(clamp(k * 2, 0, 1))) * 30 * u);
         var textCol = S.textColor, mutedCol = withAlpha(S.textColor, 0.65), numCol = it.color;
-        if (S.cardStyle === 'filled') { ctx.fillStyle = withAlpha(it.color, 0.1); rrect(ctx, x, y, cw2, ch2, S.cardRadius * u); ctx.fill(); }
+        if (S.cardStyle === 'filled') { ctx.fillStyle = withAlpha(it.color, S.fxDark ? 0.2 : 0.1); rrect(ctx, x, y, cw2, ch2, S.cardRadius * u); ctx.fill(); }
         else if (S.cardStyle === 'outline') { ctx.strokeStyle = withAlpha(it.color, 0.6); ctx.lineWidth = 3 * u; rrect(ctx, x, y, cw2, ch2, S.cardRadius * u); ctx.stroke(); }
         else if (S.cardStyle === 'solid') {
           ctx.fillStyle = it.color; rrect(ctx, x, y, cw2, ch2, S.cardRadius * u); ctx.fill();
@@ -1228,6 +1272,7 @@ function InfographicRuntime() {
 
   TEMPLATES.wordCloud = {
     name: 'Word cloud',
+    textAsMarks: true,
     description: 'Words sized by importance or frequency',
     dataHint: 'First column: word or phrase. Second column: its weight (bigger = larger text). Or leave the second column empty and paste free text (e.g. survey answers) into the first column: words are counted for you.',
     settings: [
@@ -2485,7 +2530,7 @@ function InfographicRuntime() {
           }
           var v = map[d];
           var shown = d <= reveal && v != null;
-          ctx.fillStyle = shown ? mixColor('#ffffff', heat, 0.12 + 0.88 * (maxV ? v / maxV : 0)) : empty;
+          ctx.fillStyle = shown ? mixColor(S.fxPaper, heat, 0.12 + 0.88 * (maxV ? v / maxV : 0)) : empty;
           rrect(ctx, x + cell * 0.08, yy + cell * 0.08, cell * 0.84, cell * 0.84, cell * S.cellRadius); ctx.fill();
         }
       });
@@ -2493,7 +2538,7 @@ function InfographicRuntime() {
         var lx = R.x + R.w - 300 * u, ly = R.y + R.h - 30 * u;
         setFont(ctx, S, 18 * u, 500); ctx.fillStyle = withAlpha(S.textColor, 0.6); ctx.textBaseline = 'middle'; ctx.textAlign = 'right';
         ctx.fillText('Less', lx - 8 * u, ly);
-        for (var i = 0; i < 5; i++) { ctx.fillStyle = mixColor('#ffffff', heat, 0.12 + 0.88 * i / 4); rrect(ctx, lx + i * 30 * u, ly - 11 * u, 22 * u, 22 * u, 4 * u); ctx.fill(); }
+        for (var i = 0; i < 5; i++) { ctx.fillStyle = mixColor(S.fxPaper, heat, 0.12 + 0.88 * i / 4); rrect(ctx, lx + i * 30 * u, ly - 11 * u, 22 * u, 22 * u, 4 * u); ctx.fill(); }
         ctx.fillStyle = withAlpha(S.textColor, 0.6); ctx.textAlign = 'left';
         ctx.fillText('More (max ' + fmt(maxV, S) + ')', lx + 156 * u, ly);
       }
@@ -3191,14 +3236,14 @@ function InfographicRuntime() {
       out.text = contrastText(col); out.muted = withAlpha(out.text === '#ffffff' ? '#ffffff' : '#1f2430', 0.82); out.accent = out.text; out.onAccent = col;
     } else if (style === 'white' || style === 'accent bar') {
       ctx.shadowColor = 'rgba(15,23,42,0.12)'; ctx.shadowBlur = 24 * u; ctx.shadowOffsetY = 6 * u;
-      ctx.fillStyle = '#ffffff'; rrect(ctx, x, y, w, h, radius); ctx.fill();
+      ctx.fillStyle = S.fxDark ? 'rgba(255,255,255,0.1)' : '#ffffff'; rrect(ctx, x, y, w, h, radius); ctx.fill();
       ctx.shadowColor = 'transparent';
       if (style === 'accent bar') { ctx.save(); rrect(ctx, x, y, w, h, radius); ctx.clip(); ctx.fillStyle = col; ctx.fillRect(x, y, w, Math.max(6 * u, h * 0.03)); ctx.restore(); }
-      out.text = '#1f2430'; out.muted = 'rgba(31,36,48,0.68)';
+      if (!S.fxDark) { out.text = '#1f2430'; out.muted = 'rgba(31,36,48,0.68)'; }
     } else if (style === 'outline') {
       ctx.strokeStyle = withAlpha(col, 0.7); ctx.lineWidth = 3 * u; rrect(ctx, x + 1.5 * u, y + 1.5 * u, w - 3 * u, h - 3 * u, radius); ctx.stroke();
     } else {
-      ctx.fillStyle = withAlpha(col, 0.11); rrect(ctx, x, y, w, h, radius); ctx.fill();
+      ctx.fillStyle = withAlpha(col, S.fxDark ? 0.22 : 0.11); rrect(ctx, x, y, w, h, radius); ctx.fill();
     }
     ctx.restore();
     return out;
@@ -3389,19 +3434,17 @@ function InfographicRuntime() {
       var outK = cur < n - 1 ? clamp((local - (1 - trans)) / trans, 0, 1) : 0;
       var inK = cur > 0 ? clamp(local / trans, 0, 1) : clamp(local / trans + (C.t < 0.05 ? 0 : 1), 0, 1);
       if (cur === 0) inK = EASINGS.snappy(clamp(C.pLinear * n / trans, 0, 1));
-      var eo = C.ease(outK), shift = R.w * 0.6;
+      var eo = C.ease(outK), shift = R.w * 0.6, inA = cur === 0 ? inK : 1;
       if (S.transition === 'slide') {
-        drawCard(cur, -eo * shift, 1 - eo, 1);
+        drawCard(cur, -eo * shift, (1 - eo) * inA, 1);
         if (outK > 0) drawCard(cur + 1, (1 - eo) * shift, eo, 1);
-        if (cur === 0 && inK < 1) { /* first card entrance handled by alpha below */ }
       } else if (S.transition === 'zoom') {
-        drawCard(cur, 0, 1 - eo, 1 + eo * 0.12);
+        drawCard(cur, 0, (1 - eo) * inA, 1 + eo * 0.12);
         if (outK > 0) drawCard(cur + 1, 0, eo, 0.88 + eo * 0.12);
       } else {
-        drawCard(cur, 0, 1 - eo, 1);
+        drawCard(cur, 0, (1 - eo) * inA, 1);
         if (outK > 0) drawCard(cur + 1, 0, eo, 1);
       }
-      if (cur === 0 && inK < 1) { ctx.fillStyle = S.background; ctx.globalAlpha = 1 - inK; ctx.fillRect(R.x - 2, R.y - 2, R.w + 4, ch + 4); ctx.globalAlpha = 1; }
       if (dotsH) {
         var active = outK > 0.5 ? cur + 1 : cur, dw = 14 * u, gapD = 14 * u, total = n * dw + (n - 1) * gapD + 24 * u;
         var dx = cx - total / 2, dy = R.y + R.h - dotsH / 2;
@@ -3616,6 +3659,242 @@ function InfographicRuntime() {
     ctx.fillText('Add some data in the Data tab to see your chart', R.x + R.w / 2, R.y + R.h / 2);
   }
 
+  /* ================================================================== */
+  /* Looks: animated backdrops, moving light, glow and 3D depth          */
+  /*                                                                     */
+  /* The chart is drawn twice onto transparent layers: once with text    */
+  /* switched off (the "marks" layer) and once with only text. Lighting, */
+  /* shadows, glow and depth are applied to the marks layer, so labels   */
+  /* always stay crisp and readable on top.                              */
+  /* ================================================================== */
+  var TEXT_OPS = ['fillText', 'strokeText'];
+  var SHAPE_OPS = ['fill', 'stroke', 'fillRect', 'strokeRect', 'drawImage'];
+  function noop() {}
+  function mute(ctx, ops) { ops.forEach(function (n) { ctx[n] = noop; }); }
+  function unmute(ctx, ops) { ops.forEach(function (n) { delete ctx[n]; }); }
+
+  var FXC = {};
+  function fxCanvas(name, pw, ph) {
+    var c = FXC[name];
+    if (!c) c = FXC[name] = document.createElement('canvas');
+    if (c.width !== pw || c.height !== ph) { c.width = pw; c.height = ph; }
+    var x = c.getContext('2d');
+    x.setTransform(1, 0, 0, 1, 0, 0); x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1;
+    if (typeof x.filter === 'string') x.filter = 'none';
+    x.clearRect(0, 0, pw, ph);
+    return c;
+  }
+  function rnd(i) { var v = Math.sin(i * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); }
+  function blob(ctx, x, y, r, hex, alpha, op) {
+    if (r <= 0 || alpha <= 0) return;
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, withAlpha(hex, alpha)); g.addColorStop(0.5, withAlpha(hex, alpha * 0.45)); g.addColorStop(1, withAlpha(hex, 0));
+    ctx.save(); if (op) ctx.globalCompositeOperation = op;
+    ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2); ctx.restore();
+  }
+  function vGrad(ctx, h, top, bottom) { var g = ctx.createLinearGradient(0, 0, 0, h); g.addColorStop(0, top); g.addColorStop(1, bottom); return g; }
+
+  function fxBackdrop(ctx, w, h, S, L, name, ft, light, I, project) {
+    var u = Math.min(w, h) / 1080, mx = Math.max(w, h), i;
+    if (name === 'studio') {
+      ctx.fillStyle = vGrad(ctx, h, '#f9fafe', '#dfe5f0'); ctx.fillRect(0, 0, w, h);
+      blob(ctx, light.x * w, light.y * h, mx * 0.8, '#ffffff', 0.95);
+      blob(ctx, w * (0.82 + 0.06 * Math.sin(ft * 0.31)), h * 0.95, mx * 0.5, '#7aa2ff', 0.16 * I);
+      blob(ctx, w * (0.12 + 0.06 * Math.cos(ft * 0.27)), h * 0.9, mx * 0.45, '#ff9ecb', 0.12 * I);
+    } else if (name === 'aurora') {
+      ctx.fillStyle = vGrad(ctx, h, '#060a1c', '#0d1433'); ctx.fillRect(0, 0, w, h);
+      var cols = ['#2563eb', '#8b5cf6', '#14b8a6', '#ec4899'];
+      for (i = 0; i < 4; i++) {
+        blob(ctx, w * (0.5 + 0.44 * Math.sin(ft * 0.11 * (1 + i * 0.35) + i * 1.9)), h * (0.5 + 0.42 * Math.cos(ft * 0.09 * (1 + i * 0.3) + i * 2.4)),
+          mx * (0.5 + 0.1 * Math.sin(ft * 0.2 + i)), cols[i], 0.3 * I, 'lighter');
+      }
+    } else if (name === 'neon') {
+      ctx.fillStyle = '#04050d'; ctx.fillRect(0, 0, w, h);
+      blob(ctx, w * (0.1 + 0.1 * Math.sin(ft * 0.2)), h * 1.0, mx * 0.6, '#ff2bd6', 0.2 * I, 'lighter');
+      blob(ctx, w * (0.92 + 0.08 * Math.cos(ft * 0.17)), h * 0.0, mx * 0.6, '#00e5ff', 0.18 * I, 'lighter');
+      var gs = 90 * u, wave = ((ft * 0.12) % 1) * (w + h) * 1.4 - (w + h) * 0.2;
+      var lg = ctx.createLinearGradient(wave - 380 * u, 0, wave + 380 * u, 0);
+      lg.addColorStop(0, 'rgba(120,150,255,0.05)'); lg.addColorStop(0.5, 'rgba(90,240,255,' + (0.3 * I).toFixed(3) + ')'); lg.addColorStop(1, 'rgba(120,150,255,0.05)');
+      ctx.strokeStyle = lg; ctx.lineWidth = 1.2 * u; ctx.beginPath();
+      for (var gx = (w / 2) % gs; gx < w; gx += gs) { ctx.moveTo(gx, 0); ctx.lineTo(gx, h); }
+      for (var gy = (h / 2) % gs; gy < h; gy += gs) { ctx.moveTo(0, gy); ctx.lineTo(w, gy); }
+      ctx.stroke();
+    } else if (name === 'glass') {
+      var g2 = ctx.createLinearGradient(0, 0, w, h); g2.addColorStop(0, '#6d5cff'); g2.addColorStop(1, '#ff6fb5');
+      ctx.fillStyle = g2; ctx.fillRect(0, 0, w, h);
+      var gc = ['#22d3ee', '#fbbf24', '#f43f5e', '#4f46e5'];
+      for (i = 0; i < 4; i++) {
+        blob(ctx, w * (0.5 + 0.5 * Math.sin(ft * 0.14 * (1 + i * 0.3) + i * 2.1)), h * (0.5 + 0.5 * Math.cos(ft * 0.12 * (1 + i * 0.25) + i * 1.3)), mx * 0.55, gc[i], 0.75);
+      }
+    } else if (name === 'pastel') {
+      ctx.fillStyle = vGrad(ctx, h, '#fdf8ff', '#edf5ff'); ctx.fillRect(0, 0, w, h);
+      var pc = ['#ffc2dc', '#b8dcff', '#c9f5c0', '#ffe0b0', '#d9c6f5'];
+      for (i = 0; i < 5; i++) {
+        blob(ctx, w * (0.5 + 0.5 * Math.sin(ft * 0.12 * (1 + i * 0.25) + i * 1.7)), h * (0.5 + 0.5 * Math.cos(ft * 0.1 * (1 + i * 0.3) + i * 2.6)), mx * 0.5, pc[i], 0.8 * Math.min(1, 0.5 + I * 0.5));
+      }
+      blob(ctx, light.x * w, light.y * h, mx * 0.6, '#ffffff', 0.7);
+    } else if (name === 'sunrise') {
+      var sg0 = ctx.createLinearGradient(0, 0, 0, h); sg0.addColorStop(0, '#fff6e6'); sg0.addColorStop(0.55, '#ffdcc6'); sg0.addColorStop(1, '#ffc4d2');
+      ctx.fillStyle = sg0; ctx.fillRect(0, 0, w, h);
+      var sunX = w * (0.5 + 0.34 * Math.cos(ft * 0.5 * 0.35 + 0.9)), sunY = h * (0.98 - 0.1 * Math.min(1, ft / 14));
+      blob(ctx, sunX, sunY, mx * 0.75, '#ffb347', 0.55 * Math.min(1, 0.5 + I * 0.5));
+      blob(ctx, sunX, sunY, mx * 0.32, '#fff3c4', 0.95);
+      blob(ctx, w * (0.15 + 0.08 * Math.sin(ft * 0.2)), h * 0.1, mx * 0.5, '#ff9ecb', 0.3);
+      blob(ctx, w * (0.9 + 0.06 * Math.cos(ft * 0.23)), h * 0.25, mx * 0.45, '#c7b8ff', 0.28);
+    } else if (name === 'paper') {
+      ctx.fillStyle = '#f5eee0'; ctx.fillRect(0, 0, w, h);
+      blob(ctx, light.x * w, h * 0.2, mx * 0.8, '#fffaf0', 0.9);
+      ctx.fillStyle = 'rgba(90,70,40,0.07)';
+      var ds = 26 * u; ctx.beginPath();
+      for (var py0 = ds / 2, row = 0; py0 < h; py0 += ds, row++) for (var px0 = (row % 2 ? ds : ds / 2); px0 < w; px0 += ds) { ctx.moveTo(px0 + 1.6 * u, py0); ctx.arc(px0, py0, 1.6 * u, 0, Math.PI * 2); }
+      ctx.fill();
+    } else if (name === 'frost') {
+      ctx.fillStyle = vGrad(ctx, h, '#f6fbff', '#d9eaff'); ctx.fillRect(0, 0, w, h);
+      var fc = ['#a9d6ff', '#c2f2ff', '#cfd3ff'];
+      for (i = 0; i < 3; i++) blob(ctx, w * (0.5 + 0.5 * Math.sin(ft * 0.1 * (1 + i * 0.3) + i * 2.2)), h * (0.55 + 0.45 * Math.cos(ft * 0.085 * (1 + i * 0.3) + i * 1.1)), mx * 0.55, fc[i], 0.7);
+      blob(ctx, light.x * w, light.y * h, mx * 0.6, '#ffffff', 0.85);
+    } else if (name === 'clay') {
+      ctx.fillStyle = vGrad(ctx, h, '#f3f4fb', '#e3e6f3'); ctx.fillRect(0, 0, w, h);
+      blob(ctx, w * (0.85 + 0.05 * Math.sin(ft * 0.22)), h * 0.12, mx * 0.5, '#ffd3e6', 0.55);
+      blob(ctx, w * (0.1 + 0.05 * Math.cos(ft * 0.19)), h * 0.92, mx * 0.5, '#cfe3ff', 0.6);
+      blob(ctx, light.x * w, light.y * h, mx * 0.65, '#ffffff', 0.9);
+    } else { // depth
+      var cx = light.x * w, cy = h * 0.25;
+      var rg = ctx.createRadialGradient(cx, cy, 0, cx, cy, mx * 0.95);
+      rg.addColorStop(0, '#2c3a5c'); rg.addColorStop(0.55, '#141b2e'); rg.addColorStop(1, '#090c16');
+      ctx.fillStyle = rg; ctx.fillRect(0, 0, w, h);
+    }
+    var bgIm = S.bgImage ? findImage(S.bgImage) : null;
+    if (imgReady(bgIm) && S.bgImageOpacity > 0) { ctx.save(); ctx.globalAlpha = S.bgImageOpacity; drawCover(ctx, bgIm, 0, 0, w, h, S.bgImageFit); ctx.restore(); }
+    if (L.particles && S.fxParticles) {
+      ctx.save(); ctx.globalCompositeOperation = L.dark ? 'lighter' : 'source-over';
+      for (i = 0; i < L.particles; i++) {
+        var px = (rnd(i) + 0.03 * Math.sin(ft * 0.4 + i)) * w;
+        var py = (((rnd(i + 50) - ft * (0.006 + 0.02 * rnd(i + 100))) % 1) + 1) % 1 * h;
+        var big = i % 9 === 0, ps = big ? (18 + 40 * rnd(i + 150)) * u : (1.2 + 3.2 * rnd(i + 150) * rnd(i + 150)) * u;
+        var pa = (big ? (L.dark ? 0.07 : 0.32) : 0.3 + 0.5 * (0.5 + 0.5 * Math.sin(ft * (0.7 + rnd(i + 200)) + i))) * Math.min(1.3, I);
+        ctx.fillStyle = withAlpha(L.particleColors[i % L.particleColors.length], pa);
+        ctx.beginPath(); ctx.arc(px, py, ps, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+    }
+    if (L.vignette) {
+      var d = Math.sqrt(w * w + h * h) / 2, vg = ctx.createRadialGradient(w / 2, h / 2, d * 0.55, w / 2, h / 2, d * 1.05);
+      var vrgb = L.vignetteRGB || '0,0,0'; vg.addColorStop(0, 'rgba(' + vrgb + ',0)'); vg.addColorStop(1, 'rgba(' + vrgb + ',' + L.vignette + ')');
+      ctx.fillStyle = vg; ctx.fillRect(0, 0, w, h);
+    }
+    if (L.panel) {
+      var pm = Math.min(w, h) * 0.026, pr = 30 * u;
+      ctx.save();
+      ctx.shadowColor = 'rgba(30,20,90,0.35)'; ctx.shadowBlur = 50 * u; ctx.shadowOffsetY = 16 * u;
+      ctx.fillStyle = 'rgba(255,255,255,0.76)'; rrect(ctx, pm, pm, w - pm * 2, h - pm * 2, pr); ctx.fill();
+      ctx.shadowColor = 'transparent';
+      var hg = ctx.createLinearGradient(0, pm, 0, pm + h * 0.35); hg.addColorStop(0, 'rgba(255,255,255,0.55)'); hg.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = hg; rrect(ctx, pm, pm, w - pm * 2, h - pm * 2, pr); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.95)'; ctx.lineWidth = 2 * u; rrect(ctx, pm + u, pm + u, w - pm * 2 - 2 * u, h - pm * 2 - 2 * u, pr); ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  function drawFx(ctx, w, h, project, t, ft, S, name) {
+    var L = LOOKS[name], m = ctx.getTransform();
+    var sx = Math.abs(m.a) || 1, sy = Math.abs(m.d) || 1;
+    var pw = Math.max(1, Math.round(w * sx)), ph = Math.max(1, Math.round(h * sy));
+    var k = Math.min(w, h) / 1080 * sx;                 // device pixels per design unit
+    var I = Number(S.fxIntensity); if (!isFinite(I)) I = 1; I = clamp(I, 0, 2);
+    var sp = Number(S.lightSpeed); if (!isFinite(sp)) sp = 1;
+    var a = ft * 0.5 * sp + 0.9;
+    var light = { x: 0.5 + 0.62 * Math.cos(a), y: 0.02 + 0.16 * Math.sin(a * 1.31) };
+    var dx = 0.5 - light.x, dy = 0.8 - light.y, dl = Math.sqrt(dx * dx + dy * dy); dx /= dl; dy /= dl;   // direction light travels
+
+    ctx.save(); fxBackdrop(ctx, w, h, S, L, name, ft, light, I, project); ctx.restore();
+
+    // 1. marks layer (no text) and text layer (text only)
+    var M = fxCanvas('marks', pw, ph), mc = M.getContext('2d');
+    mc.save(); mc.setTransform(sx, 0, 0, sy, 0, 0); mute(mc, TEXT_OPS);
+    try { drawContent(mc, w, h, project, t, S, true); } finally { unmute(mc, TEXT_OPS); mc.restore(); }
+    var T = fxCanvas('text', pw, ph), tc = T.getContext('2d');
+    tc.save(); tc.setTransform(sx, 0, 0, sy, 0, 0); mute(tc, SHAPE_OPS);
+    try { drawContent(tc, w, h, project, t, S, true); } finally { unmute(tc, SHAPE_OPS); tc.restore(); }
+
+    var canFilter = typeof mc.filter === 'string';
+    function blurred(nm, radius) {
+      var s = canFilter ? 0.25 : clamp(2 / radius, 0.05, 0.25);
+      var c = fxCanvas(nm, Math.max(1, Math.ceil(pw * s)), Math.max(1, Math.ceil(ph * s))), x = c.getContext('2d');
+      if (canFilter) x.filter = 'blur(' + (radius * s).toFixed(2) + 'px)';
+      x.drawImage(M, 0, 0, c.width, c.height);
+      if (canFilter) x.filter = 'none';
+      return c;
+    }
+    var depth = Math.max(0, Number(S.fxDepth) || 0) * k;
+
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, m.e, m.f);
+    // 2. soft shadow, thrown away from the light
+    if (L.shadow > 0 && I > 0) {
+      var SH = blurred('shadow', L.shadowBlur * k), sc = SH.getContext('2d');
+      sc.globalCompositeOperation = 'source-in'; sc.fillStyle = L.shadowColor || (L.dark ? '#000000' : '#18204a'); sc.fillRect(0, 0, SH.width, SH.height);
+      var off = L.shadowDist * k + depth;
+      ctx.globalAlpha = Math.min(1, L.shadow * I); ctx.drawImage(SH, dx * off, dy * off, pw, ph); ctx.globalAlpha = 1;
+    }
+    // 3. glow halo around the marks
+    if (L.glow > 0 && I > 0) {
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalAlpha = Math.min(1, L.glow * I); ctx.drawImage(blurred('glow1', 12 * k), 0, 0, pw, ph);
+      ctx.globalAlpha = Math.min(1, L.glow * I * 0.75); ctx.drawImage(blurred('glow2', 40 * k), 0, 0, pw, ph);
+      ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+    }
+    // 4. 3D depth: darkened copies stacked away from the light
+    if (depth >= 1) {
+      var SD = fxCanvas('side', pw, ph), dc = SD.getContext('2d');
+      dc.drawImage(M, 0, 0);
+      dc.globalCompositeOperation = 'destination-in'; dc.drawImage(M, 0, 0);      // fades faint things like gridlines
+      dc.globalCompositeOperation = 'source-atop'; dc.fillStyle = 'rgba(0,0,10,' + (L.sideShade || 0.45) + ')'; dc.fillRect(0, 0, pw, ph);
+      var ex = dx * 0.9, ey = 0.8, el = Math.sqrt(ex * ex + ey * ey); ex /= el; ey /= el;
+      var step = depth > 18 ? 2 : 1;
+      for (var di = Math.round(depth); di >= 1; di -= step) ctx.drawImage(SD, Math.round(ex * di), Math.round(ey * di));
+    }
+    ctx.restore();
+
+    // 5. light the marks themselves
+    if (I > 0) {
+      mc.save(); mc.setTransform(sx, 0, 0, sy, 0, 0); mc.globalCompositeOperation = 'source-atop';
+      var gl = mc.createLinearGradient(0, 0, 0, h);
+      gl.addColorStop(0, 'rgba(255,255,255,' + (L.gloss * I).toFixed(3) + ')'); gl.addColorStop(0.5, 'rgba(255,255,255,0)'); gl.addColorStop(1, 'rgba(0,0,0,' + (L.gloss * I * 0.9).toFixed(3) + ')');
+      mc.fillStyle = gl; mc.fillRect(0, 0, w, h);
+      var dg = Math.sqrt(w * w + h * h), sg = mc.createRadialGradient(light.x * w, light.y * h, 0, light.x * w, light.y * h, dg * 0.75);
+      sg.addColorStop(0, 'rgba(255,255,255,' + (L.spot * I).toFixed(3) + ')'); sg.addColorStop(1, 'rgba(255,255,255,0)');
+      mc.fillStyle = sg; mc.fillRect(0, 0, w, h);
+      if (L.sweep > 0 && sp > 0) {
+        var p = (ft * sp / 5.5) % 1, bx = -0.4 * w + p * 1.8 * w, band = 0.14 * w;
+        var sw = mc.createLinearGradient(bx - band, 0, bx + band, band * 0.8);
+        sw.addColorStop(0, 'rgba(255,255,255,0)'); sw.addColorStop(0.5, 'rgba(255,255,255,' + Math.min(0.9, L.sweep * I).toFixed(3) + ')'); sw.addColorStop(1, 'rgba(255,255,255,0)');
+        mc.fillStyle = sw; mc.fillRect(0, 0, w, h);
+      }
+      mc.restore();
+      // edge highlights facing the light, and a darker edge on the far side
+      // (worked out at half size, which is much faster and gives a soft edge)
+      var hw = Math.ceil(pw / 2), hh = Math.ceil(ph / 2), r = Math.max(0.8, 1.3 * k);
+      var HM = fxCanvas('half', hw, hh); HM.getContext('2d').drawImage(M, 0, 0, hw, hh);
+      var RC = fxCanvas('rim', hw, hh), rc = RC.getContext('2d');
+      var edge = function (ox, oy, col, alpha) {
+        if (alpha <= 0) return;
+        rc.globalCompositeOperation = 'source-over'; rc.clearRect(0, 0, hw, hh); rc.drawImage(HM, 0, 0);
+        rc.globalCompositeOperation = 'destination-out'; rc.drawImage(HM, ox, oy); rc.drawImage(HM, ox, oy); rc.drawImage(HM, ox, oy);
+        rc.globalCompositeOperation = 'source-in'; rc.fillStyle = col; rc.fillRect(0, 0, hw, hh);
+        mc.globalCompositeOperation = 'source-atop'; mc.globalAlpha = Math.min(1, alpha); mc.drawImage(RC, 0, 0, hw * 2, hh * 2);
+        mc.globalAlpha = 1; mc.globalCompositeOperation = 'source-over';
+      };
+      edge(dx * r, dy * r, '#ffffff', L.rim * I);
+      edge(-dx * r, -dy * r, '#000000', L.shade * I);
+    }
+
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, m.e, m.f);
+    ctx.drawImage(M, 0, 0);
+    if (L.glow > 0 && I > 0) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(0.5, L.glow * I * 0.22); ctx.drawImage(FXC.glow1, 0, 0, pw, ph); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; }
+    ctx.drawImage(T, 0, 0);
+    ctx.restore();
+  }
+
   /* ------------------------------------------------------------------ */
   /* Public API                                                         */
   /* ------------------------------------------------------------------ */
@@ -3629,8 +3908,12 @@ function InfographicRuntime() {
     var S = {};
     settingsSchema(project.template).forEach(function (d) { S[d.key] = d.def; });
     var src = project.settings || {};
+    var look = LOOKS[src.look] || LOOKS.classic, ld = look.defaults;
+    for (var j in ld) S[j] = ld[j];
     for (var k in src) if (Object.prototype.hasOwnProperty.call(src, k) && src[k] !== undefined) S[k] = src[k];
+    if (!LOOKS[S.look]) S.look = 'classic';
     ['decimals', 'textScale', 'duration', 'hold'].forEach(function (k) { S[k] = Number(S[k]); });
+    S.fxDark = !!look.dark; S.fxPaper = look.paper || '#ffffff';
     return S;
   }
 
@@ -3639,19 +3922,26 @@ function InfographicRuntime() {
     return Math.max(0.5, S.duration || 0) + Math.max(0, S.hold || 0);
   }
 
-  function draw(ctx, w, h, project, t) {
+  function draw(ctx, w, h, project, t, fxTime) {
     var S = resolveSettings(project);
+    setImageLibrary(project.images, S.imageShape);
+    if (S.look !== 'classic' && typeof document !== 'undefined' && ctx.getTransform) drawFx(ctx, w, h, project, t, fxTime == null ? t : fxTime, S, S.look);
+    else drawContent(ctx, w, h, project, t, S, false);
+  }
+
+  function drawContent(ctx, w, h, project, t, S, layer) {
     var tpl = TEMPLATES[project.template] || TEMPLATES.barRace;
     var u = Math.min(w, h) / 1080 * (S.textScale || 1);
     var dur = Math.max(0.5, S.duration || 0);
     var pLinear = clamp(t / dur, 0, 1);
     var ease = EASINGS[S.easing] || EASINGS.smooth;
 
-    setImageLibrary(project.images, S.imageShape);
     ctx.save();
-    ctx.fillStyle = S.background; ctx.fillRect(0, 0, w, h);
-    var bgIm = S.bgImage ? findImage(S.bgImage) : null;
-    if (imgReady(bgIm) && S.bgImageOpacity > 0) { ctx.save(); ctx.globalAlpha = S.bgImageOpacity; drawCover(ctx, bgIm, 0, 0, w, h, S.bgImageFit); ctx.restore(); }
+    if (!layer) {
+      ctx.fillStyle = S.background; ctx.fillRect(0, 0, w, h);
+      var bgIm = S.bgImage ? findImage(S.bgImage) : null;
+      if (imgReady(bgIm) && S.bgImageOpacity > 0) { ctx.save(); ctx.globalAlpha = S.bgImageOpacity; drawCover(ctx, bgIm, 0, 0, w, h, S.bgImageFit); ctx.restore(); }
+    }
     var pad = Math.round(Math.min(w, h) * 0.06);
     var logoIm = S.logo ? findImage(S.logo) : null, logoH = 64 * u * (S.logoSize || 1), logoW = 0;
     if (imgReady(logoIm)) {
@@ -3695,7 +3985,11 @@ function InfographicRuntime() {
     var R = { x: pad, y: y, w: w - pad * 2, h: Math.max(10, bottom - y) };
     var C = { ctx: ctx, S: S, u: u, T: project.data || [], t: t, pLinear: pLinear, pEased: ease(pLinear), ease: ease, w: w, h: h };
     ctx.save();
-    tpl.draw(C, R);
+    // Templates made of text (the word cloud) are lit and glow like shapes.
+    var asMarks = layer && tpl.textAsMarks;
+    if (asMarks) { if (ctx.fillText === noop) unmute(ctx, TEXT_OPS); else mute(ctx, TEXT_OPS); }
+    try { tpl.draw(C, R); }
+    finally { if (asMarks) { if (ctx.fill === noop) unmute(ctx, TEXT_OPS); else mute(ctx, TEXT_OPS); } }
     ctx.restore();
     ctx.restore();
   }
@@ -3708,7 +4002,7 @@ function InfographicRuntime() {
   function createPlayer(canvas, getProject, opts) {
     opts = opts || {};
     var ctx = canvas.getContext('2d');
-    var t = 0, playing = false, last = 0, raf = 0;
+    var t = 0, playing = false, last = 0, raf = 0, fxExtra = 0, ambRaf = 0, ambLast = 0;
     function render() {
       var P = getProject();
       var w = P.size.w, h = P.size.h;
@@ -3717,7 +4011,7 @@ function InfographicRuntime() {
       var pw = Math.max(1, Math.round(cssW * dpr)), ph = Math.max(1, Math.round(cssW * h / w * dpr));
       if (canvas.width !== pw || canvas.height !== ph) { canvas.width = pw; canvas.height = ph; }
       ctx.setTransform(pw / w, 0, 0, ph / h, 0, 0);
-      draw(ctx, w, h, P, t);
+      draw(ctx, w, h, P, t, t + fxExtra);
       if (opts.onTime) opts.onTime(t, totalTime(P));
     }
     function tick(now) {
@@ -3730,17 +4024,28 @@ function InfographicRuntime() {
       }
       render();
       if (playing) raf = requestAnimationFrame(tick);
-      else if (opts.onState) opts.onState(false);
+      else { if (opts.onState) opts.onState(false); startAmbient(); }
+    }
+    /* Keeps the lighting and backdrop moving after the chart has finished. */
+    function startAmbient() {
+      if (!opts.ambient || resolveSettings(getProject()).look === 'classic') return;
+      ambLast = performance.now();
+      ambRaf = requestAnimationFrame(function amb(now) {
+        if (playing) return;
+        fxExtra += Math.min(0.1, (now - ambLast) / 1000); ambLast = now;
+        render(); ambRaf = requestAnimationFrame(amb);
+      });
     }
     var api = {
       play: function () {
         if (playing) return;
-        if (t >= totalTime(getProject()) - 1e-3) t = 0;
+        cancelAnimationFrame(ambRaf);
+        if (t >= totalTime(getProject()) - 1e-3) { t = 0; fxExtra = 0; }
         playing = true; last = performance.now();
         if (opts.onState) opts.onState(true);
         raf = requestAnimationFrame(tick);
       },
-      pause: function () { playing = false; cancelAnimationFrame(raf); if (opts.onState) opts.onState(false); },
+      pause: function () { playing = false; cancelAnimationFrame(raf); cancelAnimationFrame(ambRaf); if (opts.onState) opts.onState(false); },
       toggle: function () { if (playing) api.pause(); else api.play(); },
       seek: function (v) { t = clamp(v, 0, totalTime(getProject())); render(); },
       render: render,
@@ -3753,9 +4058,10 @@ function InfographicRuntime() {
   }
 
   return {
-    version: '1.0.0',
+    version: '1.1.0',
     TEMPLATES: TEMPLATES,
     PALETTES: PALETTES,
+    LOOKS: LOOKS,
     FONTS: FONTS,
     settingsSchema: settingsSchema,
     resolveSettings: resolveSettings,

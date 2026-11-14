@@ -65,7 +65,7 @@ window.InfographicExport = (function () {
       '  var btn = root.querySelector("button"), scrub = root.querySelector("input");\n' +
       '  var loop = ' + (opts.loop ? 'true' : 'false') + ';\n' +
       '  var player = Infographic.createPlayer(canvas, function(){ return PROJECT; }, {\n' +
-      '    loop: function(){ return loop; },\n' +
+      '    loop: function(){ return loop; }, ambient: true,\n' +
       '    onTime: function(t, T){ if (scrub && !scrub.dragging) scrub.value = T ? t / T : 0; },\n' +
       '    onState: function(p){ if (btn) btn.innerHTML = p ? "&#10074;&#10074;" : "&#9654;"; }\n' +
       '  });\n' +

@@ -4,27 +4,33 @@ Make animated charts and infographics in your browser, then export them as a sta
 
 Paste or import your data, pick one of 33 templates, style it, and press play. Everything runs on your own computer: nothing is uploaded, and you don't need an account or an internet connection.
 
-![A bar chart race exported from Infographic Studio: coloured bars for invented streaming platforms overtake each other as the years count up](docs/bar-chart-race.gif)
+![A bar chart race in the Aurora look: glowing coloured bars for invented streaming platforms overtake each other on a dark, softly lit backdrop as the years count up](docs/bar-chart-race.gif)
 
-*A bar chart race made with the sample data and exported as video.*
+*A bar chart race in the Aurora look, made with the sample data and exported as video.*
 
 ## Screenshots
 
-**1. The editor.** Choose a template on the left, preview and scrub through the animation in the middle, and change the settings on the right.
+**1. The editor.** Choose a template on the left, preview and scrub through the animation in the middle, and change the settings on the right. The **✨ Look** menu switches between Classic, seven light looks and three dark ones.
 
-![The Infographic Studio editor showing a bar chart race, the template picker grouped by what each chart shows, and the settings panel](docs/screenshot-editor.jpg)
+![The Infographic Studio editor showing a bar chart race in the Aurora look, the template picker grouped by what each chart shows, and the Look & lighting settings](docs/screenshot-editor.jpg)
 
 **2. Thirty-three templates.** Charts, maps, flows, hierarchies, key figures, cards and timelines. Here are 12 of them with their sample data.
 
 ![A grid of twelve example charts: bar chart race, line chart, area chart, Sankey diagram, world map, sunburst, parliament chart, word cloud, big numbers, content cards, bubble plot and survey results](docs/screenshot-templates.jpg)
 
-**3. Your data and images.** Edit data like a spreadsheet, paste from Excel or Google Sheets, import a CSV, and add your own images to use as icons, photos or logos.
+**3. Looks and lighting.** Switch any chart to a look with an animated backdrop, a moving light, shadows, glow or 3D depth.
+
+![Nine charts in the Aurora, Neon, Depth, Glass and Studio looks, with glowing bars, a 3D column chart, a frosted-glass donut and a lit world map](docs/screenshot-looks.jpg)
+
+![Nine charts in the light looks: Pastel, Sunrise, Clay, Paper and Frost](docs/screenshot-looks-light.jpg)
+
+**4. Your data and images.** Edit data like a spreadsheet, paste from Excel or Google Sheets, import a CSV, and add your own images to use as icons, photos or logos.
 
 ![The Data tab with a spreadsheet-style grid, the image library holding three uploaded images, and a hint explaining the columns for the current template](docs/screenshot-data.jpg)
 
-**4. Export.** Videos are rendered frame by frame, so they're perfectly smooth whatever your computer's speed.
+**5. Export.** Videos are rendered frame by frame, so they're perfectly smooth whatever your computer's speed.
 
-![The Export MP4 dialog over a Sankey diagram, with choices for frame rate and quality](docs/screenshot-export.jpg)
+![The Export MP4 dialog over a Sankey diagram in the Studio look, with choices for frame rate and quality](docs/screenshot-export.jpg)
 
 ## Quick start
 
@@ -110,6 +116,27 @@ Similar chart styles are combined into one template with options rather than rep
 
 Interactive widgets such as quizzes, calculators and photo sliders aren't included, because they can't be turned into a video.
 
+## Looks and lighting
+
+The **✨ Look** menu above the preview restyles any template. *Classic* is the flat original; the other ten add effects that keep moving through the whole video.
+
+| | Look | What you get |
+|---|---|---|
+| **Light** | **Studio** | A clean off-white backdrop with a spotlight that drifts across the chart. Shapes cast soft shadows that shift as the light moves, and catch a highlight on the edges facing it. |
+| | **Glass** | A vivid moving gradient with the chart on a frosted-glass panel. |
+| | **Pastel** | Soft pastel colours drifting behind the chart, with gentle floating bubbles. |
+| | **Sunrise** | A warm peach-to-pink sky with a glowing sun that slowly rises. |
+| | **Paper** | Cream dotted paper with crisp, short shadows, like cut-out card. |
+| | **Frost** | Cool icy blues with drifting snow-like particles and a bright shine. |
+| | **Clay** | Soft, rounded 3D blocks on a pale backdrop with big gentle shadows. |
+| **Dark** | **Aurora** | Slowly drifting colour, floating particles, and shapes that glow. |
+| | **Neon** | Near-black with a pulsing grid and strong neon glow. |
+| | **Depth** | Shapes are extruded into 3D blocks under a spotlight. The sides swing as the light moves. |
+
+Each look sets its own background, text colour and palette, which you can then change. Under **Look & lighting** in the settings you can adjust the effect strength, how fast the light moves (0 keeps it still), the 3D depth (which works in any look) and the floating particles.
+
+Labels are drawn on a separate layer above the effects, so text stays sharp. Looks appear in the preview and in HTML, MP4 and PNG exports. In exported HTML the lighting keeps moving after the chart has finished animating.
+
 ## Icons and images
 
 **Icons.** Wherever a template has an icon column, you can type a built-in icon name, an emoji, or the name of one of your images. The built-in icons are `person, heart, star, house, drop, leaf, bolt, car, tree, trophy, laptop, phone, sun, pound, globe, book, chat, check, circle, square`, and common synonyms such as `people`, `home`, `water`, `energy`, `money` and `award` also work. Any emoji works too: 🚲 🍎 🐟 📦.
@@ -143,6 +170,7 @@ Large photos are scaled down to 1,400 px when you add them. Images are saved ins
 - Images must be uploaded into the project. Pictures linked from other websites can't be used, because browsers don't allow them to be recorded into a video.
 - The country map shows whole countries only. There are no UK regions or local authority boundaries yet.
 - Projects with many large images can be too big for the browser's autosave. Use **Save project** to keep them.
+- Looks other than Classic take more work to draw. Previews may play less smoothly on slower computers, and video export takes longer, but exported videos are always smooth.
 - Exported HTML charts animate, but they don't have hover pop-ups or filters.
 - All the sample data is invented for demonstration.
 

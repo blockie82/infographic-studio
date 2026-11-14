@@ -44,6 +44,7 @@
     project.size = project.size || { w: 1920, h: 1080 };
     if (!Infographic.TEMPLATES[project.template]) project.template = 'barRace';
     $('projName').value = project.name || 'Untitled project';
+    $('lookSel').value = Infographic.resolveSettings(project).look;
     if (Object.keys(cards).length) markActive(); else renderTemplates();
     renderSize();
     renderSettings();
@@ -161,6 +162,8 @@
       s.isSample = true;
       s.size = project.size;
       if (project.images) s.images = project.images;
+      LOOK_KEYS.forEach(function (k) { if (project.settings[k] !== undefined) s.settings[k] = project.settings[k]; });
+      if ((project.settings.look || 'classic') !== 'classic') THEME_KEYS.forEach(function (k) { delete s.settings[k]; });
       if (!project.isSample) ['palette', 'background', 'textColor', 'font', 'textScale', 'customColors', 'easing'].forEach(function (k) {
         if (project.settings[k] !== undefined) s.settings[k] = project.settings[k];
       });
@@ -225,11 +228,21 @@
     panel.appendChild(reset);
   }
 
+  /* Theme colours belong to the look, so clear any old ones when the look changes. */
+  var THEME_KEYS = ['background', 'textColor', 'palette', 'fxDepth', 'oceanColor', 'noDataColor', 'landColor', 'mapLow', 'mapHigh', 'headerColor'];
+  var LOOK_KEYS = ['look', 'fxIntensity', 'lightSpeed', 'fxParticles'];
+  function applyLook(name) {
+    project.settings.look = name;
+    THEME_KEYS.forEach(function (k) { delete project.settings[k]; });
+    $('lookSel').value = name;
+    renderSettings(); changed();
+  }
+
   function field(d, value) {
     var wrap = document.createElement('div');
     wrap.className = 'field' + (d.type === 'checkbox' ? ' check' : '');
     var id = 'set_' + d.key;
-    var set = function (v) { project.settings[d.key] = v; changed(); };
+    var set = function (v) { if (d.key === 'look') { applyLook(v); return; } project.settings[d.key] = v; changed(); };
     if (d.type === 'checkbox') {
       wrap.innerHTML = '<label><input type="checkbox" id="' + id + '"> ' + d.label + '</label>';
       var cb = wrap.querySelector('input'); cb.checked = !!value;
@@ -522,6 +535,15 @@
       };
     });
     $('tplSort').onchange = function () { pickerState.sort = this.value; renderTemplates(); };
+
+    var lightGroup = document.createElement('optgroup'), darkGroup = document.createElement('optgroup');
+    lightGroup.label = 'Light'; darkGroup.label = 'Dark';
+    Object.keys(Infographic.LOOKS).forEach(function (k) {
+      var o = document.createElement('option'); o.value = k; o.textContent = k.charAt(0).toUpperCase() + k.slice(1);
+      (k === 'classic' ? $('lookSel') : Infographic.LOOKS[k].dark ? darkGroup : lightGroup).appendChild(o);
+    });
+    $('lookSel').appendChild(lightGroup); $('lookSel').appendChild(darkGroup);
+    $('lookSel').onchange = function () { applyLook(this.value); };
 
     $('sizeSel').onchange = function () {
       var s = SIZES.find(function (x) { return x.id === $('sizeSel').value; });
