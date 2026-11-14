@@ -2,7 +2,7 @@
 
 Make animated charts and infographics in your browser, then export them as a standalone **HTML** page, an **MP4** video or a **PNG** image.
 
-It works like [Flourish](https://flourish.studio). Paste or import your data, pick one of 33 templates, style it, and press play. Everything runs on your own computer: nothing is uploaded, and you don't need an account or an internet connection.
+Paste or import your data, pick one of 33 templates, style it, and press play. Everything runs on your own computer: nothing is uploaded, and you don't need an account or an internet connection.
 
 ![A bar chart race exported from Infographic Studio: coloured bars for invented streaming platforms overtake each other as the years count up](docs/bar-chart-race.gif)
 
@@ -101,17 +101,14 @@ python3 -m http.server 8000      # then open http://localhost:8000
 
 Each template is tagged **Numbers** (quantitative), **Words & links** (qualitative) or **Mixed**. Templates that play through time periods are marked **▶ over time**.
 
-Flourish has more than 50 templates, but many of them draw the same chart. The following Flourish templates are merged here into one template with options:
+Similar chart styles are combined into one template with options rather than repeated:
 
-- Line, bar & pie variants (grouped, stacked, area, stream) are covered by the Column, Area and Donut templates.
-- Line chart race, Sports race and Horserace are covered by the Line chart's rank mode.
-- Number ticker and Countdown are covered by Big numbers. Flourish's Cards template has its own Cards group.
-- Bubble chart and the circle-packing view of Hierarchy are covered by Packed bubbles.
-- Election results chart is covered by the Parliament chart and Column chart.
-- Survey's dot view is covered by the Icon chart. Diverging bars are the Survey template.
+- Grouped, stacked and horizontal bars are all the Column chart; stacked, 100%, overlapping and streamgraph areas are all the Area chart; pie and donut are one template.
+- A line chart race (or bump chart) is the Line chart's *rank mode*.
+- Number tickers and countdown-style figures are covered by Big numbers.
+- Circle packing is the grouped form of Packed bubbles.
 
-Some Flourish templates are interactive rather than charts, and they can't become a video, so they're left out: Quiz, Calculator, Photo slider, Audio, Draw-the-line, Interactive/annotated SVG, Text annotator and Tournament.
-
+Interactive widgets such as quizzes, calculators and photo sliders aren't included, because they can't be turned into a video.
 
 ## Icons and images
 
@@ -146,7 +143,7 @@ Large photos are scaled down to 1,400 px when you add them. Images are saved ins
 - Images must be uploaded into the project. Pictures linked from other websites can't be used, because browsers don't allow them to be recorded into a video.
 - The country map shows whole countries only. There are no UK regions or local authority boundaries yet.
 - Projects with many large images can be too big for the browser's autosave. Use **Save project** to keep them.
-- Exported HTML charts animate, but they don't have Flourish-style hover pop-ups or filters.
+- Exported HTML charts animate, but they don't have hover pop-ups or filters.
 - All the sample data is invented for demonstration.
 
 ## How it works
